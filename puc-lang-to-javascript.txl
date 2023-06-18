@@ -15,8 +15,8 @@ rule test
 end rule
 
 rule addition
-    replace [number]
-        Number1 [number]
+    replace [expression]
+        Number1 [number] + Number2 [number]
     by
-        Number1 [+ 5]
+        Number1 [+ Number2]
 end rule
