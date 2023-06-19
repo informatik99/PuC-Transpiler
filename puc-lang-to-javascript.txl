@@ -1,11 +1,18 @@
-include "puc-lang.Grm"
+include "transpiler-grammar.Grm"
 
 function main 
     replace [program]
         P [program]
     by
-        P [addition]
+        P [string_concat]
 end function
+
+rule string_concat
+    replace [expression]
+        String1 [stringlit] ++ String2 [stringlit] RestStringExpression [repeat expression]
+    by
+        String1 + String2
+end rule
 
 rule test
     replace [number]

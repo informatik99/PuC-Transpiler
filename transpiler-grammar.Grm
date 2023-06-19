@@ -1,0 +1,35 @@
+
+compounds
+    ++ => == && || ->
+end compounds
+
+keys
+    Bool 'case class def 'else fn 'function 'if in Integer let 'of return switch Text 'then 'type var
+end keys
+
+
+define program
+     [expression] % | [repeat functionDefinition] | [repeat typeDefinition]
+end define
+
+tokens
+    boolean "false" | "true"
+    undefined "undefined"
+end tokens
+
+define expression
+    [atom] 
+    | [expression] + [expression] 
+    | [expression] - [expression] 
+    | [expression] * [expression] 
+    | [expression] / [expression] 
+    | [expression] ++ [repeat expression]
+    | [expression] && [expression]
+    | [expression] || [expression] 
+end define
+
+define atom
+   [number] % number kann anscheinend nur positive Zahlen
+   | [stringlit]
+   | [boolean]
+end define
