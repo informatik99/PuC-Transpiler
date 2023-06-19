@@ -1,1 +1,4 @@
-"Hallo" ++ "Rene" ++ "und" ++ "justin"
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+4

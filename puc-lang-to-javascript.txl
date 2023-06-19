@@ -4,14 +4,29 @@ function main
     replace [program]
         P [program]
     by
-        P [string_concat]
+        P [varDeclaration] [stringConcat]
 end function
 
-rule string_concat
-    replace [expression]
-        String1 [stringlit] ++ String2 [stringlit] RestStringExpression [repeat expression]
+% funktioniert :)
+rule stringConcat
+    replace [string_concat] 
+        String1 [stringlit] ++ StringConcat [string_concat]
     by
-        String1 + String2
+        String1 + StringConcat [helpStringConcat]
+end rule
+
+rule helpStringConcat
+    replace [string_concat]
+        String [stringlit] ++ String2 [stringlit]
+    by
+        String + String2
+end rule
+
+rule varDeclaration
+    replace [var_declaration]
+        let Variable [id] '= Expr1 [expression] in Expr2 [expression]
+    by
+        var Variable '= Expr1 Expr2 % Die Zeilenumbrüche müssen hier nicht stehen sondern in der .Grm Datei
 end rule
 
 rule test

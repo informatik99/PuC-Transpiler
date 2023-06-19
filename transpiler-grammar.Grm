@@ -23,10 +23,26 @@ define expression
     | [expression] - [expression] 
     | [expression] * [expression] 
     | [expression] / [expression] 
-    | [expression] ++ [repeat expression]
+    | [string_concat]
     | [expression] && [expression]
     | [expression] || [expression] 
+    | [var_declaration]
 end define
+
+% kann man bestimmt gut für die Präsentation nehmen
+define string_concat
+    [stringlit]
+    | [stringlit] ++ [string_concat] % diese Zeile muss vor [stringlit] ++ [stringlit] stehen damit auch bei nur 2 Strings die Umwandlung klappt - verstehe ich aber nicht genau
+    | [stringlit] ++ [stringlit] 
+    | [stringlit] + [stringlit]
+    | [stringlit] + [string_concat]
+end define
+
+define var_declaration
+    let [id] '= [expression] in [expression]
+    | var [id] '= [expression] [NL] [expression] % das nach dem in ist einfach ein Ausdruck der in eine neue Zeile muss
+end define
+
 
 define atom
    [number] % number kann anscheinend nur positive Zahlen
