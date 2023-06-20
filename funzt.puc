@@ -1,0 +1,6 @@
+let fun = fn x => let alpha = x + 66 in 
+25 in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun(5)
