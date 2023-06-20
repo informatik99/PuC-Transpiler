@@ -1,6 +1,1 @@
-let fun = fn x: Integer => let haha = x +3 in 
-25 in
-let name = "Hallo" ++ "Rene" in
-let schwimmer = "hallo" ++ "Justin" in
-let wahr = true in
-fun(5)
+if (2==3) then 2 + 2 else 3 + 2  
