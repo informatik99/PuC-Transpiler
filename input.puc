@@ -1,4 +1,5 @@
-let fun = fn x => x + x in
+let fun = fn x: Integer => let haha = x +3 in 
+25 in
 let name = "Hallo" ++ "Rene" in
 let schwimmer = "hallo" ++ "Justin" in
 let wahr = true in

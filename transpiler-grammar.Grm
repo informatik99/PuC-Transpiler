@@ -9,7 +9,7 @@ end keys
 
 
 define program
-     [expression] % | [repeat functionDefinition] | [repeat typeDefinition]
+    [expression] % | [repeat functionDefinition] | [repeat typeDefinition]
 end define
 
 tokens
@@ -18,23 +18,58 @@ tokens
 end tokens
 
 define expression
-    [atom] 
-    | [expression] + [expression] 
-    | [expression] - [expression] 
-    | [expression] * [expression] 
-    | [expression] / [expression] 
+    [sub]
+    | [multiplition]
+    | [division] 
     | [string_concat]
-    | [expression] && [expression]
-    | [expression] || [expression] 
-    | [expression] == [expression] 
+    | [equal]
+    | [and]
+    | [or]
+    | [atom]
+    | [addition]
     | [var_declaration]
+    
+end define
+
+define or
+    [atom]
+    | [atom] '|| [expression]
+end define
+
+define and
+    [atom]
+    | [atom] && [expression]
+end define
+
+define equal
+    [atom]
+    | [atom] == [expression]
+end define
+
+define addition
+    [atom]
+    | [atom] + [expression]
+end define
+
+define sub
+    [atom]
+    | [atom] - [expression]
+end define
+
+define multiplition
+    [atom]
+    | [atom] * [expression]
+end define
+
+define division
+    [atom]
+    | [atom] / [expression]
 end define
 
 % kann man bestimmt gut für die Präsentation nehmen
 define string_concat
     [stringlit]
     | [stringlit] ++ [string_concat] % diese Zeile muss vor [stringlit] ++ [stringlit] stehen damit auch bei nur 2 Strings die Umwandlung klappt - verstehe ich aber nicht genau
-    | [stringlit] ++ [stringlit] 
     | [stringlit] + [stringlit]
     | [stringlit] + [string_concat]
 end define
@@ -57,7 +92,7 @@ end define
 define lambda
    fn [id] => [expression]
    | fn [id] : [type]  => [expression]
-   | '( [id] ') => '{ [NL] [expression] [NL] '}
+   | '( [id] ') => '{ [NL] [expression] '}
 end define
 
 define type
@@ -70,5 +105,7 @@ end define
 
 % ist in beiden Sprachen gleich
 define function_call
-    [id] '( [expression] ')
+    [id] '( [expression] ') [function_call]
+    | '( [expression] ') [function_call]
+    | [empty]
 end define

@@ -45,7 +45,7 @@ rule makeLambdaWithType
     replace [lambda]
         fn Param [id] : Type [type] => Expr [expression]
     by
-        '( Param ') => '{ Expr '}
+        '( Param ') => '{ Expr '} 
 end rule
 
 rule test
@@ -55,9 +55,3 @@ rule test
         37
 end rule
 
-rule addition
-    replace [expression]
-        Number1 [number] + Number2 [number]
-    by
-        Number1 [+ Number2]
-end rule
