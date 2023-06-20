@@ -26,6 +26,7 @@ define expression
     | [string_concat]
     | [expression] && [expression]
     | [expression] || [expression] 
+    | [expression] == [expression] 
     | [var_declaration]
 end define
 
@@ -48,4 +49,26 @@ define atom
    [number] % number kann anscheinend nur positive Zahlen
    | [stringlit]
    | [boolean]
+   | [id]
+   | [lambda]
+   | [function_call]
+end define
+
+define lambda
+   fn [id] => [expression]
+   | fn [id] : [type]  => [expression]
+   | '( [id] ') => '{ [NL] [expression] [NL] '}
+end define
+
+define type
+    Bool
+    | Integer
+    | Text
+    | [type]
+    | [type] -> [type]
+end define
+
+% ist in beiden Sprachen gleich
+define function_call
+    [id] '( [expression] ')
 end define

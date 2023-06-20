@@ -1,4 +1,5 @@
+let fun = fn x => x + x in
 let name = "Hallo" ++ "Rene" in
 let schwimmer = "hallo" ++ "Justin" in
 let wahr = true in
-4
+fun(5)
