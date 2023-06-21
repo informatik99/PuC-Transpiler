@@ -92,7 +92,12 @@ end define
 define lambda
    fn [id] => [expression]
    | fn [id] : [type]  => [expression]
-   | '( [id] ') => '{ [NL] [expression] '}
+   | '( [id] ') => '{ [NL] [return_expression]
+end define
+
+define return_expression
+    [expression] '}
+    | return [expression] [NL] '}
 end define
 
 define type

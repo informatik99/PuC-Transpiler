@@ -8,6 +8,7 @@ function main
         [makeLambdaWithType] 
         [makeLambda] 
         [stringConcat]
+        [putReturn]
 end function
 
 % funktioniert :)
@@ -46,6 +47,20 @@ rule makeLambdaWithType
         fn Param [id] : Type [type] => Expr [expression]
     by
         '( Param ') => '{ Expr '} 
+end rule
+
+rule putReturn
+    replace [return_expression]
+        Expr [expression] '}
+    by
+        return Expr [put] '}
+end rule
+
+rule putReturnAtEndOfVarDeclaration
+    replace [var_declaration]
+        var [id] = Expr [expression] Expr2 [expression]
+    by
+
 end rule
 
 rule test
