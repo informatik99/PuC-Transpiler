@@ -4,5 +4,5 @@ case 5{
     of 4 => "ausreichend" 
     of 3 => "befridigend" 
     of 2 => "Gut" 
-    of 1 => "Sehr Gut"  
+    of 1 => "Sehr gut"
 }

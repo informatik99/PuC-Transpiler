@@ -118,12 +118,12 @@ end define
 
 define cases 
     'case [expression] '{ [repeat branches+] '}
-    | switch '( [expression] ') '{ [repeat branches] '}
+    | switch '( [expression] ') '{ [NL] [repeat branches] '}
 end define
 
 define branches 
     'of [expression] => [expression]  [opt branches]
-    |'case [expression] : [expression] break;  [opt branches]
+    |'case [expression] : [expression] [NL] break; [NL] [opt branches]
 end define
 
 % ist in beiden Sprachen gleich
