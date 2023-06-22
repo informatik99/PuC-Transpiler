@@ -1,1 +1,8 @@
-if (2==3) then 2 + 2 else 3 + 2  
+case 5{
+    of 6 => "ungenuegend" 
+    of 5 => "mangelhaft" 
+    of 4 => "ausreichend" 
+    of 3 => "befridigend" 
+    of 2 => "Gut" 
+    of 1 => "Sehr Gut"  
+}
