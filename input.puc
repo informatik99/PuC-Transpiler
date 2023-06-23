@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 let fun = fn x: Integer => fn y:Integer => x in
 let name = "Hallo" ++ "Rene" in
 let schwimmer = "hallo" ++ "Justin" in
 let wahr = true in
 fun(5)(9)
-=======
-if (2==3) then 2 + 2 else 3 + 2  
->>>>>>> 868459a3a0f3ce854c6eb83cf2ac34a6596c828c

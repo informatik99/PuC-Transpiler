@@ -4,3 +4,11 @@ let name = "Hallo" ++ "Rene" in
 let schwimmer = "hallo" ++ "Justin" in
 let wahr = true in
 fun(5)
+
+
+// und das auch
+let fun = fn x: Integer => fn y:Integer => x in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun(5)(9)
