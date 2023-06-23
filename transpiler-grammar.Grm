@@ -28,6 +28,7 @@ define expression
     | [atom]
     | [addition]
     | [var_declaration]
+    | [ife]
     
 end define
 
@@ -106,6 +107,17 @@ define type
     | Text
     | [type]
     | [type] -> [type]
+end define
+
+define condition 
+    [boolean] 
+    | [equal] 
+end define
+
+
+define ife
+    'if  '( [condition] ') 'then [expression] 'else [expression] 
+    |'if '( [condition] ') '{ [expression] '} 'else '{ [expression] '}
 end define
 
 % ist in beiden Sprachen gleich

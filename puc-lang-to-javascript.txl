@@ -9,6 +9,7 @@ function main
         [makeLambda] 
         [stringConcat]
         [putReturn]
+        [makeIf]
 end function
 
 % funktioniert :)
@@ -62,6 +63,17 @@ rule putReturnAtEndOfVarDeclaration
     by
 
 end rule
+
+rule makeIf 
+    replace [ife]
+        'if  '( Cond [condition] ') 'then Exp1 [expression] 'else Exp2 [expression]
+    by
+        'if '( Cond ') '{
+             Exp1 
+             '} 'else '{ 
+                 Exp2 
+                 '}
+    end rule 
 
 rule test
     replace [number]
