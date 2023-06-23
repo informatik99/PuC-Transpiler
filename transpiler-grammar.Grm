@@ -4,7 +4,7 @@ compounds
 end compounds
 
 keys
-    Bool 'case class def 'else fn 'function 'if in Integer let 'of return switch Text 'then 'type var
+    Bool 'case class def 'else fn 'function 'if in Integer let 'of return switch Text 'then 'type var break
 end keys
 
 
@@ -29,6 +29,7 @@ define expression
     | [addition]
     | [var_declaration]
     | [ife]
+    | [cases]
     
 end define
 
@@ -109,15 +110,25 @@ define type
     | [type] -> [type]
 end define
 
-define condition 
+define condition % erstmal drin lassen vileeicht für if noch ganz pracktisch S
     [boolean] 
     | [equal] 
 end define
 
 
 define ife
-    'if  '( [condition] ') 'then [expression] 'else [expression] 
-    |'if '( [condition] ') '{ [expression] '} 'else '{ [expression] '}
+    'if  '( [expression] ') 'then [expression] 'else [expression] 
+    |'if '( [expression] ') '{ [expression] '} 'else '{ [expression] '}
+end define
+
+define cases 
+    'case [expression] '{ [repeat branches+] '}
+    | switch '( [expression] ') '{ [NL] [repeat branches] '}
+end define
+
+define branches 
+    'of [expression] => [expression]  [opt branches]
+    |'case [expression] : [expression] [NL] break; [NL] [opt branches]
 end define
 
 % ist in beiden Sprachen gleich

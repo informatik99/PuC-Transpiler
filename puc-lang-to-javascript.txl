@@ -10,6 +10,8 @@ function main
         [stringConcat]
         [putReturn]
         [makeIf]
+        [makeCase]
+        [makeBranch]
 end function
 
 % funktioniert :)
@@ -66,7 +68,7 @@ end rule
 
 rule makeIf 
     replace [ife]
-        'if  '( Cond [condition] ') 'then Exp1 [expression] 'else Exp2 [expression]
+        'if  '( Cond [expression] ') 'then Exp1 [expression] 'else Exp2 [expression]
     by
         'if '( Cond ') '{
              Exp1 
@@ -74,6 +76,27 @@ rule makeIf
                  Exp2 
                  '}
     end rule 
+
+rule makeCase
+    replace [cases]
+        'case Exp [expression] '{ Branche [branches] MoreBranches [repeat branches] '}
+    by
+    switch '( Exp ') '{
+        
+            Branche 
+    
+            MoreBranches
+    '}
+end rule
+
+rule makeBranch 
+    replace [branches]
+        'of Exp [expression] => Exp2 [expression]  BrancheOpt [opt branches]
+    by
+        'case Exp : Exp2 break;
+
+        BrancheOpt
+end rule    
 
 rule test
     replace [number]
