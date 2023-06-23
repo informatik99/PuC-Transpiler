@@ -4,14 +4,16 @@ function main
     replace [program]
         P [program]
     by
-        P [varDeclaration] 
+        P  
         [makeLambdaWithType] 
-        [makeLambda] 
+        [makeLambda]
+        [varDeclaration]
         [stringConcat]
-        [putReturn]
         [makeIf]
         [makeCase]
         [makeBranch]
+        [removeReturnOnVarDeclaration]
+        [removeReturnForNotEndReturn]
 end function
 
 % funktioniert :)
@@ -38,33 +40,80 @@ rule varDeclaration
 end rule
 
 
+ % alles was sich speziell auf Funktionen bezieht ANFANG
+rule varDeclarationForFunction
+    replace [var_declaration]
+        let Variable [id] '= Expr1 [expression] in Expr2 [expression]
+    by
+        var Variable '= Expr1 Expr2[putReturn] % Die Zeilenumbrüche müssen hier nicht stehen sondern in der .Grm Datei
+end rule
+
+rule ifElseForFunction
+    replace [ife]
+        'if '( Cond [expression] ') 'then Expr1 [expression] else Expr2 [expression] 
+    by
+        'if '( Cond ') '{
+             Expr1 [putReturn]
+             '} 'else '{ 
+                 Expr2 [putReturn]
+                 '}
+end rule
+
 rule makeLambda
     replace [lambda]
         fn Param [id] => Expr [expression]
     by
-        '( Param ') => '{ Expr '}
+        '( Param ') => '{ return Expr [ifElseForFunction] [varDeclarationForFunction] '} 
 end rule
 
 rule makeLambdaWithType
     replace [lambda]
         fn Param [id] : Type [type] => Expr [expression]
     by
-        '( Param ') => '{ Expr '} 
+        '( Param ') => '{ return Expr [ifElseForFunction] [varDeclarationForFunction]  '}
 end rule
 
-rule putReturn
-    replace [return_expression]
-        Expr [expression] '}
+
+
+% return hinschreiben um es nachher an den falschen Stellen wieder!
+function putReturn
+    replace * [expression]
+        Expr [end_return] 
     by
-        return Expr [put] '}
-end rule
+        return Expr [put]
+end function
 
-rule putReturnAtEndOfVarDeclaration
-    replace [var_declaration]
-        var [id] = Expr [expression] Expr2 [expression]
+
+% hier mit das return an den falchen Stellen wieder entfernen!
+function isVarDeclaration
+    match * [var_declaration]
+        V [var_declaration]
+end function
+
+function isIfElse
+    match * [ife]
+        I [ife]
+end function
+
+rule removeReturnForNotEndReturn
+    replace [function_end]
+        return Expr [expression]
+    where 
+        Expr [isVarDeclaration] [isIfElse]
     by
-
+        Expr
 end rule
+
+function removeReturnOnVarDeclaration
+    replace * [var_declaration]
+        var V [id] '= return Expr1 [end_return] return Expr2 [end_return] 
+    by 
+        var V '= Expr1 [put] [removeReturnOnVarDeclaration] return Expr2 [removeReturnOnVarDeclaration]
+end function
+ % alles was sich speziell auf Funktionen bezieht ENDE
+
+
+
 
 rule makeIf 
     replace [ife]

@@ -17,20 +17,36 @@ tokens
     undefined "undefined"
 end tokens
 
+
+define return_nonterminal
+    return
+end define
+
 define expression
-    [sub]
-    | [multiplition]
-    | [division] 
-    | [string_concat]
-    | [equal]
-    | [and]
-    | [or]
-    | [atom]
-    | [addition]
+    [opt return_nonterminal] [end_return]
     | [var_declaration]
     | [ife]
     | [cases]
     
+end define
+
+% Ausdrücke die in JavaScript mit einem return versehen werden können am Ende der Funktion
+define end_return
+ [opt return_nonterminal] [sub]
+    | [opt return_nonterminal] [multiplition]
+    | [opt return_nonterminal] [division] 
+    | [opt return_nonterminal] [string_concat]
+    | [opt return_nonterminal] [equal]
+    | [opt return_nonterminal] [and]
+    | [opt return_nonterminal] [or]
+    | [opt return_nonterminal] [addition]
+    | [opt return_nonterminal] [atom]
+end define
+
+% einfach nur das Funktionsende in den beiden Sprachen
+define function_end
+    [expression]
+    | [return_nonterminal] [expression] 
 end define
 
 define or
@@ -78,7 +94,7 @@ end define
 
 define var_declaration
     let [id] '= [expression] in [expression]
-    | var [id] '= [expression] [NL] [expression] % das nach dem in ist einfach ein Ausdruck der in eine neue Zeile muss
+    | [opt return_nonterminal] var [id] '= [expression] [NL] [expression] % das nach dem in ist einfach ein Ausdruck der in eine neue Zeile muss
 end define
 
 
@@ -92,14 +108,9 @@ define atom
 end define
 
 define lambda
-   fn [id] => [expression]
-   | fn [id] : [type]  => [expression]
-   | '( [id] ') => '{ [NL] [return_expression]
-end define
-
-define return_expression
-    [expression] '}
-    | return [expression] [NL] '}
+   fn [id] => [function_end]
+   | fn [id] : [type]  => [function_end]
+   | '( [id] ') => '{ [NL] [function_end] [NL] '}
 end define
 
 define type
@@ -118,7 +129,7 @@ end define
 
 define ife
     'if  '( [expression] ') 'then [expression] 'else [expression] 
-    |'if '( [expression] ') '{ [expression] '} 'else '{ [expression] '}
+    |'if '( [expression] ') '{ [NL] [expression] [NL] '} 'else '{ [NL] [expression] [NL]'}
 end define
 
 define cases 
