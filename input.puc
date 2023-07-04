@@ -1,15 +1,9 @@
+def <o>  fun (x:Integer , y:Integer , z :Bool, abc : Integer -> Integer): Integer => "aa" ++ "hh"
 
-// funktioniert noch nicht
-let fun = fn x => let xx = 78 
-in if (x == xx) then x else xx in
+def fun2 (s:Text): Text =>  s 
+
 let name = "Hallo" ++ "Rene" in
-let schwimmer = "hallo" ++ "Justin" in
+let schwimmer = "Hallo" ++ "Justin" in
 let wahr = true in
 fun( fn x => x + x )
 
-// funktioniert
-let fun = fn x => if (3==0) then x(55) else 78 in
-let name = "Hallo" ++ "Rene" in
-let schwimmer = "hallo" ++ "Justin" in
-let wahr = true in
-fun( fn x => x + x )

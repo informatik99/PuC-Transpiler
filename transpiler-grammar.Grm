@@ -9,7 +9,7 @@ end keys
 
 
 define program
-    [expression] % | [repeat functionDefinition] | [repeat typeDefinition]
+    [empty] | [expression] | [function_definition] [program] % | [repeat type_definition]
 end define
 
 tokens
@@ -20,6 +20,28 @@ end tokens
 
 define return_nonterminal
     return
+end define
+
+define function_definition
+    def [generic_type_list] [id] '( [function_parameter_list] ') : [type] => [function_end] |
+    'function [id] '( [function_parameter_list] ') '{ [NL] [function_end] [NL] '} [NL]
+end define
+
+define function_parameter_list
+    [parameter_with_type], [function_parameter_list] 
+    | [parameter_with_type]
+end define
+
+define parameter_with_type
+    [id] : [type] | [id]
+end define
+
+define generic_type_list
+    [empty] | <[generic_type]>
+end define
+
+define generic_type
+    [id], [generic_type] | [id] 
 end define
 
 define expression

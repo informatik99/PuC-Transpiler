@@ -7,6 +7,7 @@ function main
         P  
         [makeLambdaWithType] 
         [makeLambda]
+        [makeFunction]
         [varDeclaration]
         [stringConcat]
         [makeIf]
@@ -16,7 +17,7 @@ function main
         [removeReturnForNotEndReturn]
 end function
 
-% funktioniert :)
+% funktioniert :) ABER nur mit Strings mit Variablen dabei nicht! -> noch machen
 rule stringConcat
     replace [string_concat] 
         String1 [stringlit] ++ StringConcat [string_concat]
@@ -57,6 +58,20 @@ rule ifElseForFunction
              '} 'else '{ 
                  Expr2 [putReturn]
                  '}
+end rule
+
+rule makeFunction
+    replace [function_definition]
+        def GenericType [generic_type_list] Name [id] '( ParameterList [function_parameter_list] ') : Type [type] => Expr [expression]
+    by
+        'function Name '( ParameterList [resolveParameterList] ') '{ return Expr [ifElseForFunction] [varDeclarationForFunction]'}
+end rule
+
+rule resolveParameterList
+    replace [parameter_with_type]
+        Name [id] : Type [type]
+    by
+        Name
 end rule
 
 rule makeLambda
