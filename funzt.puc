@@ -12,3 +12,115 @@ let name = "Hallo" ++ "Rene" in
 let schwimmer = "hallo" ++ "Justin" in
 let wahr = true in
 fun(5)(9)
+
+// auch
+let fun = fn x => let y = (5 +(5)) * (96 -5) in 
+let z = 25 in
+let a = "jj" ++ "aa" in 
+let i = 55 + 99 *88 in 
+50 in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun(5)
+
+// auch
+let fun = fn x => fn y => fn z => x+ y +z in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun(5)(8)(7)
+
+//auch
+let fun = fn x => fn y => x in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun(5)
+
+// auch
+let fun = fn x => let y = (5 +(5)) * (96 -5) in 
+ fn z => z in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun(5)(8)
+
+// auch
+let fun = fn x => if (3==0) then 5 else 78 in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun(5)(9)
+
+//auch
+let fun = fn x => if (3==0) then let zz = 57 in zz else 78 in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun(5)
+
+// auch
+let fun = fn x => if (3==0) then x(55) else 78 in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun( fn x => x + x )
+
+// auch
+let fun = fn x => let xx = 78 
+in if (xx == x) then x else xx in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun( fn x => x + x )
+
+// funktioniert nicht denn das Return wird nicht überall weggemacht
+let fun = fn x => let y = (5 +(5)) * (96 -5) in 
+let z = 25 in
+let a = "jj" ++ "aa" in 
+let i = 55 + 99 *88 in 
+ fn p => let jj = 88 in
+ let pp = 69 in
+ 500 in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun(5)
+
+// funktioniert noch nicht, weil das return nicht in der Bedingung beim if weggemacht wird
+let fun = fn x => let xx = 78 
+in if (x == xx) then x else xx in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun( fn x => x + x )
+
+// funktioniert (klappt aber nicht wenn vor dem if noch eine Variablenzuweisung kommt)
+let fun = fn x => if (3==0) then x(55) else 78 in
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "hallo" ++ "Justin" in
+let wahr = true in
+fun( fn x => x + x )
+
+
+// funktioniert
+def <o>  fun (x:Integer , y:Integer , z :Bool, abc : Integer -> Integer): Integer => "aa" ++ "hh"
+
+def fun2 (s:Text): Text =>  s 
+
+let name = "Hallo" ++ "Rene" in
+let schwimmer = "Hallo" ++ "Justin" in
+let wahr = true in
+fun( fn x => x + x )
+
+
+// funktioniert
+def <o>  fun (x:Integer , y:Integer , z :Bool, abc : Integer -> Integer): Integer => if( y == x) then  abc(y) ++ x else x
+
+def fun2 (s:Text): Text => s ++ "kk" ++ s 
+
+let name = "Hallo" ++ "Rene" in
+let schwimmer = name ++ name in
+let wahr = true in
+fun( fn x => x + x )

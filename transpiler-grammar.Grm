@@ -108,10 +108,9 @@ end define
 
 % kann man bestimmt gut für die Präsentation nehmen
 define string_concat
-    [stringlit]
-    | [stringlit] ++ [string_concat] % diese Zeile muss vor [stringlit] ++ [stringlit] stehen damit auch bei nur 2 Strings die Umwandlung klappt - verstehe ich aber nicht genau
-    | [stringlit] + [stringlit]
-    | [stringlit] + [string_concat]
+    [atom]
+    | [atom] ++ [expression]
+    | [atom] + [expression]
 end define
 
 define var_declaration
@@ -121,7 +120,7 @@ end define
 
 
 define atom
-   [number] % number kann anscheinend nur positive Zahlen
+   [number]
    | [stringlit]
    | [boolean]
    | [id]

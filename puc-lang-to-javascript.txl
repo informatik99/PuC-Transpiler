@@ -4,7 +4,7 @@ function main
     replace [program]
         P [program]
     by
-        P  
+        P  [put]
         [makeLambdaWithType] 
         [makeLambda]
         [makeFunction]
@@ -13,21 +13,21 @@ function main
         [makeIf]
         [makeCase]
         [makeBranch]
-        [removeReturnOnVarDeclaration]
+        [removeReturnOnVarDeclaration] 
         [removeReturnForNotEndReturn]
 end function
 
-% funktioniert :) ABER nur mit Strings mit Variablen dabei nicht! -> noch machen
+    % funktioniert :) ABER nur mit Strings mit Variablen dabei nicht! -> noch machen
 rule stringConcat
     replace [string_concat] 
-        String1 [stringlit] ++ StringConcat [string_concat]
+        String1 [atom] ++ StringConcat [expression]
     by
         String1 + StringConcat [helpStringConcat]
 end rule
 
 rule helpStringConcat
     replace [string_concat]
-        String [stringlit] ++ String2 [stringlit]
+        String [atom] ++ String2 [atom]
     by
         String + String2
 end rule
