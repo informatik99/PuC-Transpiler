@@ -4,12 +4,13 @@ function main
     replace [program]
         P [program]
     by
-        P  [put]
+        P 
         [makeLambdaWithType] 
         [makeLambda]
         [makeFunction]
         [varDeclaration]
         [stringConcat]
+        [console_output]
         [makeIf]
         [makeCase]
         [makeBranch]
@@ -17,7 +18,7 @@ function main
         [removeReturnForNotEndReturn]
 end function
 
-    % funktioniert :) ABER nur mit Strings mit Variablen dabei nicht! -> noch machen
+    % funktioniert :) 
 rule stringConcat
     replace [string_concat] 
         String1 [atom] ++ StringConcat [expression]
@@ -47,6 +48,13 @@ rule varDeclarationForFunction
         let Variable [id] '= Expr1 [expression] in Expr2 [expression]
     by
         var Variable '= Expr1 Expr2[putReturn] % Die Zeilenumbrüche müssen hier nicht stehen sondern in der .Grm Datei
+end rule
+
+rule console_output
+    replace [console_output]
+        print '( Expr [end_return]')
+    by
+        '('(') => '{ console.log '( Expr ') return Expr '}') '(')
 end rule
 
 rule ifElseForFunction
@@ -95,7 +103,7 @@ function putReturn
     replace * [expression]
         Expr [end_return] 
     by
-        return Expr [put]
+        return Expr
 end function
 
 
@@ -123,7 +131,7 @@ function removeReturnOnVarDeclaration
     replace * [var_declaration]
         var V [id] '= return Expr1 [end_return] return Expr2 [end_return] 
     by 
-        var V '= Expr1 [put] [removeReturnOnVarDeclaration] return Expr2 [removeReturnOnVarDeclaration]
+        var V '= Expr1 [removeReturnOnVarDeclaration] return Expr2 [removeReturnOnVarDeclaration]
 end function
  % alles was sich speziell auf Funktionen bezieht ENDE
 

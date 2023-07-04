@@ -4,7 +4,7 @@ compounds
 end compounds
 
 keys
-    Bool 'case class def 'else fn 'function 'if in Integer let 'of return switch Text 'then 'type var break
+    Bool 'case class def 'else fn 'function 'if in Integer let 'of return switch Text 'then 'type var break print console.log
 end keys
 
 
@@ -63,6 +63,12 @@ define end_return
     | [opt return_nonterminal] [or]
     | [opt return_nonterminal] [addition]
     | [opt return_nonterminal] [atom]
+    | [opt return_nonterminal] [console_output]
+end define
+
+define console_output
+    print '( [end_return] ') 
+    | '('(') => '{ [NL] console.log '( [end_return] ') [NL] return [end_return] [NL] '}') '(')
 end define
 
 % einfach nur das Funktionsende in den beiden Sprachen
@@ -165,7 +171,12 @@ end define
 
 % ist in beiden Sprachen gleich
 define function_call
-    [id] '( [expression] ') [function_call]
-    | '( [expression] ') [function_call]
+    [id] '( [argument_list] ') [function_call]
+    | '( [argument_list] ') [function_call]
     | [empty]
+end define
+
+define argument_list
+    [end_return], [argument_list]
+    | [end_return]
 end define

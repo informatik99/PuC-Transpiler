@@ -1,9 +1,9 @@
-def <o>  fun (x:Integer , y:Integer , z :Bool, abc : Integer -> Integer): Integer => if( y == x) then  abc(y) ++ x else x
+def <o>  fun (x:Integer ): Text => if( x == x) then   "x" else "y"
 
-def fun2 (s:Text): Text => s ++ "kk" ++ s 
+def funu (s:Text): Text => print( "jdksfjkld")
 
 let name = "Hallo" ++ "Rene" in
 let schwimmer = name ++ name in
 let wahr = true in
-fun( fn x => x + x )
+funu("Hallo Text")
 
