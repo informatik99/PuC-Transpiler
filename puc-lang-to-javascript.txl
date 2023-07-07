@@ -12,6 +12,7 @@ function main
         [stringConcat]
         [consoleOutput]
         [intNachString]
+        [stringEquals]
         [makeIf]
         [makeCase]
         [makeBranch]
@@ -58,6 +59,13 @@ rule intNachString
         String'( Expr ')
 end rule
 
+% built-in überführen
+rule stringEquals
+    replace [string_equals]
+        str_eq'( Expr [end_return] ') '( Expr2 [end_return] ')
+    by
+        '( '( Expr ') => '{ return '( Expr2 ') => '{  return Expr == Expr2 '} '} ') '(') '( Expr2 ')
+end rule
 
 
  % alles was sich speziell auf Funktionen bezieht ANFANG
@@ -70,7 +78,7 @@ end rule
 
 rule ifElseForFunction
     replace [ife]
-        'if '( Cond [expression] ') 'then Expr1 [expression] else Expr2 [expression] 
+        'if  Cond [expression]  'then Expr1 [expression] else Expr2 [expression] 
     by
         'if '( Cond ') '{
              Expr1 [putReturn]
@@ -152,7 +160,7 @@ end function
 
 rule makeIf 
     replace [ife]
-        'if  '( Cond [expression] ') 'then Exp1 [expression] 'else Exp2 [expression]
+        'if   Cond [expression] 'then Exp1 [expression] 'else Exp2 [expression]
     by
         'if '( Cond ') '{
              Exp1 

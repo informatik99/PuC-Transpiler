@@ -4,7 +4,7 @@ compounds
 end compounds
 
 keys
-    Bool break 'case class console.log def 'else fn 'function 'if in Integer int_to_string let 'of print return String switch Text 'then 'type var    
+    Bool break 'case class console.log def 'else fn 'function 'if in Integer int_to_string let 'of print return str_eq String switch Text 'then 'type var    
 end keys
 
 
@@ -77,6 +77,11 @@ define int_nach_string
     | String'( [end_return] ')
 end define
 
+define string_equals
+    str_eq '( [end_return] ') '( [end_return] ')
+    | '( '( [end_return] ') => '{ [NL] return '( [end_return] ') => '{ [NL] return [end_return] == [end_return] '} '} ') '(') '( [end_return] ')
+end define
+
 % einfach nur das Funktionsende in den beiden Sprachen
 define function_end
     [expression]
@@ -139,6 +144,7 @@ define atom
    | [function_call]
    | [int_nach_string]
    | [console_output]
+   | [string_equals]
 end define
 
 define lambda
@@ -162,7 +168,7 @@ end define
 
 
 define ife
-    'if  '( [expression] ') 'then [expression] 'else [expression] 
+    'if   [expression] 'then [expression] 'else [expression] 
     |'if '( [expression] ') '{ [NL] [expression] [NL] '} 'else '{ [NL] [expression] [NL]'}
 end define
 
