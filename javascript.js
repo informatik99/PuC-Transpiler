@@ -5,10 +5,10 @@ return "x"
 return "y"
 }
 }
-function funu (s, j, s2) {
+function funu (s, j, string) {
 return (() => {
-console.log (s + " " + String (j) + " " + s2)
-return s + " " + String (j) + " " + s2
+console.log (s + " " + String (j) + " " + string)
+return s + " " + String (j) + " " + string
 }) ()
 }
 var name = "Rene "

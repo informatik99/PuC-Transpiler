@@ -1,6 +1,6 @@
 def <o>  fun (x:Integer ): Text => if x == x then   "x" else "y"
 
-def funu (s:Text, j: Integer,s2 :Text): Text => print( s ++ " " ++ int_to_string(j) ++ " " ++ s2)
+def funu (s:Text, j: Integer,string:Text): Text => print( s ++ " " ++ int_to_string(j) ++ " " ++ string)
 
 let name =  "Rene " in
 let schwimmer = "Hallo " ++ name ++ "schwimm bitte: "in
