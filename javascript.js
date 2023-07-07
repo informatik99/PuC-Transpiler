@@ -5,13 +5,13 @@ return "x"
 return "y"
 }
 }
-function funu (s) {
+function funu (s, j, s2) {
 return (() => {
-console.log ("jdksfjkld")
-return "jdksfjkld"
+console.log (s + " " + String (j) + " " + s2)
+return s + " " + String (j) + " " + s2
 }) ()
 }
-var name = "Hallo" + "Rene"
-var schwimmer = name + name
+var name = "Rene "
+var schwimmer = "Hallo " + name + "schwimm bitte: "
 var wahr = true
-funu ("Hallo Text")
+funu (schwimmer, 10, "Bahnen")

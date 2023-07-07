@@ -1,10 +1,8 @@
+def <o>  fun (x:Integer ): Text => if x == x then   "x" else "y"
 
+def funu (s:Text, j: Integer,s2 :Text): Text => print( s ++ " " ++ int_to_string(j) ++ " " ++ s2)
 
-def <o>  fun (x:Integer ): Text => if( x == x) then   "x" else "y"
-
-def funu (s:Text, j: Text): Text => print( j ++ " " ++ s)
-
-let name = "Hallo" ++ "Rene" in
-let schwimmer = name ++ name in
+let name =  "Rene " in
+let schwimmer = "Hallo " ++ name ++ "schwimm bitte: "in
 let wahr = true in
-funu("Hallo Text", "jj")
+funu(schwimmer, 10, "Bahnen")
