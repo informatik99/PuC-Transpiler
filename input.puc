@@ -1,9 +1,10 @@
+
+
 def <o>  fun (x:Integer ): Text => if( x == x) then   "x" else "y"
 
-def funu (s:Text): Text => print( "jdksfjkld")
+def funu (s:Text, j: Text): Text => print( j ++ " " ++ s)
 
 let name = "Hallo" ++ "Rene" in
 let schwimmer = name ++ name in
 let wahr = true in
-funu("Hallo Text")
-
+funu("Hallo Text", "jj")

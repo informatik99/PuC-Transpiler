@@ -1,9 +1,9 @@
 var fun = (x) => {
-    return (y) => {
-    return x
-    }
+    return console.log(25)
     }
     var name = "Hallo" + "Rene"
     var schwimmer = "hallo" + "Justin"
     var wahr = true
-    console.log(fun (5) (9))
+    console.log(fun (5))
+
+
