@@ -64,7 +64,7 @@ rule stringEquals
     replace [string_equals]
         str_eq'( Expr [end_return] ') '( Expr2 [end_return] ')
     by
-        '( '( Expr ') => '{ return '( Expr2 ') => '{  return Expr == Expr2 '} '} ') '(') '( Expr2 ')
+        '( '( Wert1 ') => '{ return '( Wert2 ') => '{  return Wert1 == Wert2 '} '} ') '( Expr ') '( Expr2 ')
 end rule
 
 
@@ -91,7 +91,7 @@ rule makeFunction
     replace [function_definition]
         def GenericType [generic_type_list] Name [id] '( ParameterList [function_parameter_list] ') : Type [type] => Expr [expression]
     by
-        'function Name '( ParameterList [resolveParameterList] ') '{ return Expr [ifElseForFunction] [varDeclarationForFunction]'}
+        'function Name '( ParameterList [resolveParameterList] ') '{ return Expr  [ifElseForFunction] [varDeclarationForFunction]'}
 end rule
 
 % das Nonterminal function_parameter_list wird einfach übersprungen weil wir das Komma zwischen den Parametern nicht verarbeiten müssen

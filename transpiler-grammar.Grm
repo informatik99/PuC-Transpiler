@@ -9,7 +9,7 @@ end keys
 
 
 define program
-    [empty] | [expression] | [function_definition] [program] % | [repeat type_definition]
+     [expression] | [function_definition] [program]
 end define
 
 tokens
@@ -79,7 +79,7 @@ end define
 
 define string_equals
     str_eq '( [end_return] ') '( [end_return] ')
-    | '( '( [end_return] ') => '{ [NL] return '( [end_return] ') => '{ [NL] return [end_return] == [end_return] '} '} ') '(') '( [end_return] ')
+    | '( '( [id] ') => '{ [NL] return '( [id] ') => '{ [NL] return [id] == [id] '} '} ') '( [end_return] ') '( [end_return] ')
 end define
 
 % einfach nur das Funktionsende in den beiden Sprachen
