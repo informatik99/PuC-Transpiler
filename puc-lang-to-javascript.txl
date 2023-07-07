@@ -10,7 +10,8 @@ function main
         [makeFunction]
         [varDeclaration]
         [stringConcat]
-        [console_output]
+        [consoleOutput]
+        [intNachString]
         [makeIf]
         [makeCase]
         [makeBranch]
@@ -41,6 +42,19 @@ rule varDeclaration
         var Variable '= Expr1 Expr2 % Die Zeilenumbrüche müssen hier nicht stehen sondern in der .Grm Datei
 end rule
 
+rule consoleOutput
+    replace [console_output]
+        print '( Expr [end_return]')
+    by
+        '('(') => '{ console.log '( Expr ') return Expr '}') '(')
+end rule
+
+rule intNachString
+    replace [int_nach_string]
+        int_to_string'( Expr [end_return]')
+    by
+        String'( Expr ')
+end rule
 
  % alles was sich speziell auf Funktionen bezieht ANFANG
 rule varDeclarationForFunction
@@ -48,13 +62,6 @@ rule varDeclarationForFunction
         let Variable [id] '= Expr1 [expression] in Expr2 [expression]
     by
         var Variable '= Expr1 Expr2[putReturn] % Die Zeilenumbrüche müssen hier nicht stehen sondern in der .Grm Datei
-end rule
-
-rule console_output
-    replace [console_output]
-        print '( Expr [end_return]')
-    by
-        '('(') => '{ console.log '( Expr ') return Expr '}') '(')
 end rule
 
 rule ifElseForFunction

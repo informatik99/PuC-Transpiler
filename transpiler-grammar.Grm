@@ -4,7 +4,7 @@ compounds
 end compounds
 
 keys
-    Bool 'case class def 'else fn 'function 'if in Integer let 'of return switch Text 'then 'type var break print console.log
+    Bool break 'case class console.log def 'else fn 'function 'if in Integer int_to_string let 'of print return String switch Text 'then 'type var    
 end keys
 
 
@@ -63,12 +63,18 @@ define end_return
     | [opt return_nonterminal] [or]
     | [opt return_nonterminal] [addition]
     | [opt return_nonterminal] [atom]
-    | [opt return_nonterminal] [console_output]
 end define
 
+% built-in von puc-lang
 define console_output
     print '( [end_return] ') 
     | '('(') => '{ [NL] console.log '( [end_return] ') [NL] return [end_return] [NL] '}') '(')
+end define
+
+% built-in von puc-lang
+define int_nach_string
+    int_to_string'( [end_return] ')
+    | String'( [end_return] ')
 end define
 
 % einfach nur das Funktionsende in den beiden Sprachen
@@ -112,7 +118,6 @@ define division
     | [atom] / [expression]
 end define
 
-% kann man bestimmt gut für die Präsentation nehmen
 define string_concat
     [atom]
     | [atom] ++ [expression]
@@ -132,6 +137,8 @@ define atom
    | [id]
    | [lambda]
    | [function_call]
+   | [int_nach_string]
+   | [console_output]
 end define
 
 define lambda
