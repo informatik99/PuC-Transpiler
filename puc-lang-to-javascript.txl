@@ -19,7 +19,7 @@ function main
         [removeReturnForNotEndReturn]
 end function
 
-    % funktioniert :) 
+ 
 rule stringConcat
     replace [string_concat] 
         String1 [atom] ++ StringConcat [expression]
@@ -34,7 +34,7 @@ rule helpStringConcat
         String + String2
 end rule
 
-% funktioniert :)
+
 rule varDeclaration
     replace [var_declaration]
         let Variable [id] '= Expr1 [expression] in Expr2 [expression]
@@ -42,6 +42,7 @@ rule varDeclaration
         var Variable '= Expr1 Expr2 % Die Zeilenumbrüche müssen hier nicht stehen sondern in der .Grm Datei
 end rule
 
+% built-in überführen
 rule consoleOutput
     replace [console_output]
         print '( Expr [end_return]')
@@ -49,12 +50,15 @@ rule consoleOutput
         '('(') => '{ console.log '( Expr ') return Expr '}') '(')
 end rule
 
+% built-in überführen
 rule intNachString
     replace [int_nach_string]
         int_to_string'( Expr [end_return]')
     by
         String'( Expr ')
 end rule
+
+
 
  % alles was sich speziell auf Funktionen bezieht ANFANG
 rule varDeclarationForFunction
@@ -82,6 +86,7 @@ rule makeFunction
         'function Name '( ParameterList [resolveParameterList] ') '{ return Expr [ifElseForFunction] [varDeclarationForFunction]'}
 end rule
 
+% das Nonterminal function_parameter_list wird einfach übersprungen weil wir das Komma zwischen den Parametern nicht verarbeiten müssen
 rule resolveParameterList
     replace [parameter_with_type]
         Name [id] : Type [type]
@@ -114,7 +119,7 @@ function putReturn
 end function
 
 
-% hier mit das return an den falchen Stellen wieder entfernen!
+% hiermit das return an den falchen Stellen wieder entfernen!
 function isVarDeclaration
     match * [var_declaration]
         V [var_declaration]
